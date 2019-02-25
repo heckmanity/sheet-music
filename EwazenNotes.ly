@@ -1,5 +1,10 @@
 \version "2.18.0"
 
+\header {
+  tagline = ""
+}
+
+
 subP =
 #(make-dynamic-script
   (markup #:line
@@ -9,14 +14,6 @@ subP =
                              #:italic "sub."
                              #:dynamic "p")))
 
-STARone = {
-    \key c \major
-    \time 4/4 \numericTimeSignature
-    \clef treble
-    \set Score.skipBars = ##t
-    \override Staff.MultiMeasureRest.expand-limit = #1
-}
-
 STARtwo = {
     \key c \major
     \time 6/8
@@ -24,16 +21,7 @@ STARtwo = {
     \set Score.skipBars = ##t
     \override Staff.MultiMeasureRest.expand-limit = #1
 }
-
-STARthr = {
-    \key c \major
-    \time 4/4 \numericTimeSignature
-    \clef treble
-    \set Score.skipBars = ##t
-    \override Staff.MultiMeasureRest.expand-limit = #1
-}
-
-MvtI = \relative c''{ 
+MvtII = \relative c''{ 
     \STARone
     \tempo "Lento" 4 = 52
     
@@ -329,7 +317,7 @@ MvtI = \relative c''{
     \bar "|."
 }
 
-MvtII = \relative c''{ 
+MvtII2 = \relative c''{ 
     \STARtwo
     \tempo "Allegretto" 4.=48
       R2.*3
@@ -404,156 +392,31 @@ MvtII = \relative c''{
     \pageTurn
 }
 
-MvtIII = \relative c''{ 
-    \STARthr
-    \tempo "Allegro con Fuoco" 4=152
-      R1*4 \break
-      R1
-      
-    \bar "||"  
-    \time 3/4
-      R2.*3 \break
-      R2.*5 \break
-      R2.*6 \break
-      R2.*7 \break
-      R2.*3
-      
-    \bar "||"
-    \time 4/4 \numericTimeSignature
-      R1*3 \break
-      R1*5 \break
-      R1*4
-    \time 5/4
-      R1*5/4
-    
-    \pageTurn
-    
-    \time 3/4
-      R2.*6 \break
-      R2.*4
-    \time 4/4 \numericTimeSignature
-      R1 \break
-      
-      R1*4
-    \time 2/4
-      R2 \break
-    
-    \time 4/4 \numericTimeSignature
-      R1
-    \time 2/4
-      R2
-    \time 4/4
-      R1*3 \break
-      
-      R1*5 \break
-      R1*4 \break
-      R1
-    \time 3/4
-      R2.
-    \time 4/4 \numericTimeSignature
-      R1
-    \time 3/4
-      R2. \break
-      
-    \time 4/4 \numericTimeSignature
-      R1
-    \time 3/4
-      R2.*4 
-    
-    \pageTurn
-    
-      R2.*8 \break
-      R2.*10 \break
-      R2.*5 \break
-      R2.*6 \break
-      
-      R2.*2
-    \time 4/4 \numericTimeSignature
-      R1
-    \time 3/4 
-      R2.*8 \break
-      
-      R2.*5 \break
-      R2.*3 
-    \time 4/4 \numericTimeSignature
-      R1*2 \break
-      R1*4 \break
-      R1*4
-      
-    \pageTurn
-    
-      R1*2
-    \time 6/8
-      R2.*2 \break
-      R2.*4
-    \time 7/8
-      R2.. \break
-    
-    \time 4/4 \numericTimeSignature
-      R1*4 \break
-      R1*6 \break
-      R1*5 \break
-      R1*2
-    \time 5/8
-      R1*5/8*3 \break
-      
-      R1*5/8*6 \break
-      R1*5/8*5 \break
-    \time 7/8
-      R2..
-    \time 4/4 \numericTimeSignature
-      R1
-    \bar "||"
-    \tempo "Allargando" 4=92
-      R1
-      R1*2^\markup{\small\italic "accel. molto"}
-    
-    \pageTurn
-    
-      R1
-    \bar "||"
-    \tempo "Presto" 4=184
-    \time 5/8
-      R1*5/8
-    \time 7/8
-      R2..
-    \time 3/4
-      R2.*2
-    \time 5/8
-      R1*5/8 \break
-      
-      R1*5/8
-    \time 3/4
-      R2.*4
-    \time 5/8
-      R1*5/8 \break
-      
-      R1*5/8
-    \time 3/4
-      R2.*2
-    \time 5/8
-      R1*5/8*2
-    \time 3/4
-      R2. \break
-      
-      R2.*2
-    \time 5/4
-      R1*5/4
-    \time 5/8
-      R1*5/8*3 \break
-      
-      R1*5/8*7 \break
-      R1*5/8*4
-    \time 7/8
-      R2..
-    \time 3/4
-      R2. \break
-    
-      R2.*6 \break
-      R2.*4
-    \tempo "Prestissimo"
-      R2.*2 \break
-      R2.*5
-    
-    \bar "|."
+\book {
+  \paper {
+    system-system-spacing =
+      #'((basic-distance . 18)
+         (minimum-distance . 8)
+         (padding . 1)
+         (stretchability . 60)) 
+    print-all-headers = ##t
+    top-margin = 0.6\in
+    bottom-margin = 0.6\in
+    left-margin = 0.5\in
+    right-margin = 0.5\in
+  }
+  
+  \bookpart {  %Music
+    \score {
+      \new Staff = "MvtII" \MvtII
+      \header {
+        title = \markup{\magnify #2.2 "II"}
+        subtitle = ##f
+        composer = ##f	
+        poet = ##f
+      }
+      %\layout { }
+      %\midi { }
+    }    
+  }  
 }
