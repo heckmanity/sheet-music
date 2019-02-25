@@ -415,8 +415,8 @@ MvtII2 = \relative c''{
         composer = ##f	
         poet = ##f
       }
-      %\layout { }
-      %\midi { }
+      \layout { }
+      \midi { }
     }    
   }  
 }
